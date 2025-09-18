@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satellite Météorologique</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal">
+        <div class="header">
+            IMAGERIE SATELLITE HAUTE RÉSOLUTION - CANAL VISIBLE/INFRAROUGE
+        </div>
+        
+        <div class="main-content">
+            <div class="satellite-display">
+                <canvas id="canvas" width="650" height="650"></canvas>
+                
+                <div class="overlay-info" id="overlayInfo">
+                    <div>HURRICANE IAN</div>
+                    <div>26.0°N, 82.5°W</div>
+                    <div>Cat. 4 - 155 mph</div>
+                </div>
+
+                <div class="coords-grid">
+                    <div class="coord-label" style="top: 20px; left: 20px;">28°N</div>
+                    <div class="coord-label" style="top: 40%; left: 20px;">27°N</div>
+                    <div class="coord-label" style="bottom: 80px; left: 20px;">25°N</div>
+                    <div class="coord-label" style="bottom: 20px; left: 80px;">84°W</div>
+                    <div class="coord-label" style="bottom: 20px; right: 80px;">81°W</div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <div class="section">
+                    <div class="section-title">Cyclones Historiques</div>
+                    <div class="hurricane-list">
+                        <button class="hurricane-btn active" data-hurricane="ian">Hurricane Ian (2022)</button>
+                        <button class="hurricane-btn" data-hurricane="katrina">Hurricane Katrina (2005)</button>
+                        <button class="hurricane-btn" data-hurricane="dorian">Hurricane Dorian (2019)</button>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">Contrôle Audio</div>
+                    <button class="audio-btn" id="audioBtn">🎤 Microphone OFF</button>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Sensibilité</span>
+                            <span id="sensValue">1.0</span>
+                        </div>
+                        <input type="range" class="slider" id="sensitivity" min="0.5" max="3" step="0.1" value="1">
+                    </div>
+                    <div class="audio-level">
+                        <div class="level-bar" id="levelBar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer" id="timestamp">
+            NOAA-20 VIIRS • TEMPS RÉEL • 2024-03-15 14:32:07 UTC
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
