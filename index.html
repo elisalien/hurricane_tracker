@@ -3,51 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satellite Météorologique</title>
+    <title>Terminal Satellite Météorologique</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="terminal">
-        <div class="header">
-            IMAGERIE SATELLITE HAUTE RÉSOLUTION - CANAL VISIBLE/INFRAROUGE
-        </div>
+    <div class="terminal-wrapper">
+        <div class="scanlines"></div>
         
-        <div class="main-content">
-            <div class="satellite-display">
-                <canvas id="canvas" width="650" height="650"></canvas>
+        <header class="terminal-header">
+            <h1>IMAGERIE SATELLITE HAUTE RÉSOLUTION - CANAL VISIBLE/IR</h1>
+            <div class="status-indicator">
+                <span class="blinking-dot"></span> EN LIGNE
+            </div>
+        </header>
+        
+        <main class="terminal-main">
+            <section class="satellite-display">
+                <canvas id="radarCanvas" width="800" height="600"></canvas>
                 
-                <div class="overlay-info" id="overlayInfo">
-                    <div>HURRICANE IAN</div>
-                    <div>26.0°N, 82.5°W</div>
-                    <div>Cat. 4 - 155 mph</div>
+                <div class="crosshair crosshair-h"></div>
+                <div class="crosshair crosshair-v"></div>
+                
+                <div class="coords top-left">28°N, 84°W</div>
+                <div class="coords bottom-right">25°N, 81°W</div>
+            </section>
+            
+            <aside class="control-panel">
+                <div class="panel-section data-section">
+                    <h2>DONNÉES TÉLÉMÉTRIQUES</h2>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-label">NOM</span>
+                            <span class="stat-value highlight" id="sys-name">IAN</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">CATÉGORIE</span>
+                            <span class="stat-value danger" id="sys-cat">4</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">VENTS MAX</span>
+                            <span class="stat-value" id="sys-wind">250 km/h</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">PRESSION</span>
+                            <span class="stat-value" id="sys-pressure">936 hPa</span>
+                        </div>
+                        <div class="stat-box full-width">
+                            <span class="stat-label">COORDONNÉES ACTUELLES</span>
+                            <span class="stat-value" id="sys-coords">26.0°N, 82.5°W</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="coords-grid">
-                    <div class="coord-label" style="top: 20px; left: 20px;">28°N</div>
-                    <div class="coord-label" style="top: 40%; left: 20px;">27°N</div>
-                    <div class="coord-label" style="bottom: 80px; left: 20px;">25°N</div>
-                    <div class="coord-label" style="bottom: 20px; left: 80px;">84°W</div>
-                    <div class="coord-label" style="bottom: 20px; right: 80px;">81°W</div>
-                </div>
-            </div>
-            
-            <div class="controls">
-                <div class="section">
-                    <div class="section-title">Cyclones Historiques</div>
+                <div class="panel-section">
+                    <h2>ARCHIVES CYCLONIQUES</h2>
                     <div class="hurricane-list">
-                        <button class="hurricane-btn active" data-hurricane="ian">Hurricane Ian (2022)</button>
-                        <button class="hurricane-btn" data-hurricane="katrina">Hurricane Katrina (2005)</button>
-                        <button class="hurricane-btn" data-hurricane="dorian">Hurricane Dorian (2019)</button>
+                        <button class="hurricane-btn active" data-id="ian">SYS: IAN (2022)</button>
+                        <button class="hurricane-btn" data-id="katrina">SYS: KATRINA (2005)</button>
+                        <button class="hurricane-btn" data-id="dorian">SYS: DORIAN (2019)</button>
                     </div>
                 </div>
                 
-                <div class="section">
-                    <div class="section-title">Contrôle Audio</div>
-                    <button class="audio-btn" id="audioBtn">🎤 Microphone OFF</button>
+                <div class="panel-section audio-section">
+                    <h2>ANALYSE ACOUSTIQUE</h2>
+                    <button class="audio-btn" id="audioBtn">
+                        <span class="icon">🎤</span> MICROPHONE: OFF
+                    </button>
                     <div class="slider-container">
                         <div class="slider-label">
-                            <span>Sensibilité</span>
-                            <span id="sensValue">1.0</span>
+                            <span>GAIN CAPTEUR</span>
+                            <span id="sensValue">1.0x</span>
                         </div>
                         <input type="range" class="slider" id="sensitivity" min="0.5" max="3" step="0.1" value="1">
                     </div>
@@ -55,12 +81,13 @@
                         <div class="level-bar" id="levelBar"></div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </aside>
+        </main>
         
-        <div class="footer" id="timestamp">
-            NOAA-20 VIIRS • TEMPS RÉEL • 2024-03-15 14:32:07 UTC
-        </div>
+        <footer class="terminal-footer">
+            <span id="timestamp"></span>
+            <span>SAT: NOAA-20 VIIRS | CANAL: 14 (11.45 µm) | SOURCE: CHRS</span>
+        </footer>
     </div>
 
     <script src="script.js"></script>
